@@ -137,7 +137,7 @@ class Iseed
         if (!empty($exclude)) {
             $allColumns = \DB::connection($this->databaseName)->getSchemaBuilder()->getColumnListing($table);
             sort($allColumns);
-            $exclude = array_merge($exclude, ['updated_at', 'created_at']);
+            $exclude = is_null($exclude) ? ['updated_at', 'created_at'] : $exclude;
             $result = $result->select(array_diff($allColumns, $exclude));
         }
 
