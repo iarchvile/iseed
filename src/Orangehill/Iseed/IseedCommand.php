@@ -66,6 +66,7 @@ class IseedCommand extends Command
         $direction = $this->option('direction');
         $prefix = $this->option('classnameprefix');
         $suffix = $this->option('classnamesuffix');
+        $timestamp = $this->option('timestamp');
 
         if ($max < 1) {
             $max = null;
@@ -107,7 +108,8 @@ class IseedCommand extends Command
                         $dumpAuto,
                         $indexed,
                         $orderBy,
-                        $direction
+                        $direction,
+                        $timestamp
                     ),
                     $table
                 );
@@ -128,7 +130,8 @@ class IseedCommand extends Command
                         $prerunEvent,
                         $postrunEvent,
                         $dumpAuto,
-                        $indexed
+                        $indexed,
+                        $timestamp
                     ),
                     $table
                 );
@@ -172,6 +175,7 @@ class IseedCommand extends Command
             array('direction', null, InputOption::VALUE_OPTIONAL, 'orderby direction', null),
             array('classnameprefix', null, InputOption::VALUE_OPTIONAL, 'prefix for class and file name', null),
             array('classnamesuffix', null, InputOption::VALUE_OPTIONAL, 'suffix for class and file name', null),
+            array('timestamp', null, InputOption::VALUE_OPTIONAL, 'include created_at and updated_at in field list', null),
         );
     }
 
