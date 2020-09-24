@@ -92,6 +92,16 @@ class IseedCommand extends Command
             // generate file and class name based on name of the table
             list($fileName, $className) = $this->generateFileName($table, $prefix, $suffix);
 
+            $fileAuthor = exec('git log -1 --pretty=format:"%an" '.$fileName);
+            $userName = exec('git config --global user.name');
+
+            if ($fileAuthor !== $userName) {
+                if (!$this->confirm('File '.$className.' was changed by '.
+                    $fileAuthor.'. Do you wish to override it?', 'yes')) {
+                    continue;
+                }
+            }
+
             // if file does not exist or force option is turned on generate seeder
             if (!\File::exists($fileName) || $this->option('force')) {
                 $this->printResult(
